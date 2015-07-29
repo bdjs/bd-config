@@ -1,0 +1,32 @@
+{
+  "name": "bd-config",
+  "version": "0.1.0",
+  "description": "bd config",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdjs/bd-config.git"
+  },
+  "keywords": [
+    "bd",
+    "config",
+    "configs",
+    "node-config"
+  ],
+  "author": "mdemo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bdjs/bd-config/issues"
+  },
+  "homepage": "https://github.com/bdjs/bd-config#readme",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "object-assign": "^3.0.0"
+  }
+}
