@@ -33,7 +33,9 @@ module.exports = function(root) {
       return;
     }
     if (path.extname(file) === '.js') {
-      configs = assign(configs, requireConfig(path.join(root, file)));
+      var config = requireConfig(path.join(root, file));
+      var key = path.basename(file, '.js');
+      configs[key] = config;
     }
   });
   return configs;
