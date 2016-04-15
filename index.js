@@ -25,6 +25,14 @@ module.exports = function(root) {
   if (fs.existsSync(envDir) && fs.existsSync(envFile)) {
     debug(envFile);
     configs = assign(configs, requireConfig(envFile));
+    if (process.env.NODE_ENV == 'local' && process.env.NODE_DEV) {  // 在本地调试测试环境的数据
+      let port = configs.port;
+      let logger = configs.logger;
+      let devFile = path.join(envDir, 'development');
+      configs = assign(configs, requireConfig(devFile));
+      configs.port = port;
+      configs.logger = logger;
+    }
   }
   // read configs
   var files = fs.readdirSync(root);
