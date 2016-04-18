@@ -25,6 +25,18 @@ module.exports = function(root) {
   if (fs.existsSync(envDir) && fs.existsSync(envFile)) {
     debug(envFile);
     configs = assign(configs, requireConfig(envFile));
+    if (process.env.NODE_DEV) {  // 在本地调试测试环境的数据
+      let devFile = path.join(envDir, process.env.NODE_DEV + '.js');
+      if (fs.existsSync(devFile)) {
+        // 考虑到端口号以及log路径的区别，所以采用以下方式来替换数据库配置
+        debug(devFile);
+        let port = configs.port;
+        let logger = configs.logger;
+        configs = assign(configs, requireConfig(devFile));
+        configs.port = port;
+        configs.logger = logger;
+      }
+    }
   }
   // read configs
   var files = fs.readdirSync(root);
