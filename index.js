@@ -1,50 +1,50 @@
-'use strict';
+'use strict'
 
-var path = require('path');
-var fs = require('fs');
-var assign = require('object-assign');
-var debug = require('debug')('bd-config');
+const path = require('path')
+const fs = require('fs')
+const assign = require('object-assign')
+const debug = require('debug')('bd-config')
 
-var defaultRoot = path.join(
+const defaultRoot = path.join(
   path.dirname(process.mainModule.filename),
   'configs'
-);
-var env = process.env.NODE_ENV || 'development';
-var configs = {};
+)
+const env = process.env.NODE_ENV || 'development'
+let configs = {}
 
-module.exports = function(root) {
-  root = root || defaultRoot;
-  debug(root);
+module.exports = function (root = defaultRoot) {
+  debug(root)
   if (!fs.existsSync(root)) {
-    return;
+    return
   }
-  var envDir = path.join(root, 'env');
-  var envFile = path.join(envDir, env);
-  envFile += '.js';
+  let envDir = path.join(root, 'env')
+  let envFile = path.join(envDir, env)
+  envFile += '.js'
   // env configs
   if (fs.existsSync(envDir) && fs.existsSync(envFile)) {
-    debug(envFile);
-    configs = assign(configs, requireConfig(envFile));
+    debug(envFile)
+    configs = Object.assign(configs, requireConfig(envFile))
   }
   // read configs
-  var files = fs.readdirSync(root);
-  files.map(function(file) {
+  let files = fs.readdirSync(root)
+  files.forEach(file => {
     if (file[0] === '.') {
-      return;
+      return
     }
     if (path.extname(file) === '.js') {
-      var config = requireConfig(path.join(root, file));
-      var key = path.basename(file, '.js');
-      configs[key] = config;
+      let config = requireConfig(path.join(root, file))
+      let key = path.basename(file, '.js')
+      configs[key] = config
     }
-  });
-  return configs;
+  })
+
+  return configs
 }
 
-function requireConfig(configPath) {
-  var config = require(configPath);
-  if (typeof config != 'object') {
-    return {};
+function requireConfig (configPath) {
+  let config = require(configPath)
+  if (typeof config !== 'object') {
+    return {}
   }
-  return config;
+  return config
 }
