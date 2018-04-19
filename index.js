@@ -2,7 +2,6 @@
 
 const path = require('path')
 const fs = require('fs')
-const assign = require('object-assign')
 const debug = require('debug')('bd-config')
 
 const defaultRoot = path.join(
@@ -28,7 +27,7 @@ module.exports = function (root = defaultRoot) {
   // read configs
   let files = fs.readdirSync(root)
   files.forEach(file => {
-    if (file[0] === '.') {
+    if (file.startsWith('.')) {
       return
     }
     if (path.extname(file) === '.js') {

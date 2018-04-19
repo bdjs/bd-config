@@ -1,14 +1,12 @@
 {
   "name": "bd-config",
-  "version": "0.2.0",
+  "version": "2.0.0",
   "description": "bd config",
   "main": "index.js",
   "directories": {
     "example": "example"
   },
-  "scripts": {
-    "test": "npm test"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bdjs/bd-config.git"
@@ -19,22 +17,22 @@
     "configs",
     "node-config"
   ],
-  "author": "mdemo",
+  "author": "blued-fe",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bdjs/bd-config/issues"
   },
   "homepage": "https://github.com/bdjs/bd-config#readme",
-  "dependencies": {
-    "debug": "^2.2.0",
-    "object-assign": "^3.0.0"
+  "engines": {
+    "node": ">= 8.0.0"
   },
+  "dependencies": {},
   "devDependencies": {
-    "eslint": "^4.15.0",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1"
   }
 }
