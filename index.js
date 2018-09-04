@@ -1,8 +1,7 @@
-'use strict'
+/* eslint-disable import/no-dynamic-require */
 
 const path = require('path')
 const fs = require('fs')
-const debug = require('debug')('bd-config')
 
 const defaultRoot = path.join(
   path.dirname(process.mainModule.filename),
@@ -11,28 +10,26 @@ const defaultRoot = path.join(
 const env = process.env.NODE_ENV || 'development'
 let configs = {}
 
-module.exports = function (root = defaultRoot) {
-  debug(root)
+module.exports = (root = defaultRoot) => {
   if (!fs.existsSync(root)) {
     return
   }
-  let envDir = path.join(root, 'env')
+  const envDir = path.join(root, 'env')
   let envFile = path.join(envDir, env)
   envFile += '.js'
   // env configs
   if (fs.existsSync(envDir) && fs.existsSync(envFile)) {
-    debug(envFile)
     configs = Object.assign(configs, requireConfig(envFile))
   }
   // read configs
-  let files = fs.readdirSync(root)
+  const files = fs.readdirSync(root)
   files.forEach(file => {
     if (file.startsWith('.')) {
       return
     }
     if (path.extname(file) === '.js') {
-      let config = requireConfig(path.join(root, file))
-      let key = path.basename(file, '.js')
+      const config = requireConfig(path.join(root, file))
+      const key = path.basename(file, '.js')
       configs[key] = config
     }
   })
@@ -41,7 +38,7 @@ module.exports = function (root = defaultRoot) {
 }
 
 function requireConfig (configPath) {
-  let config = require(configPath)
+  const config = require(configPath)
   if (typeof config !== 'object') {
     return {}
   }
